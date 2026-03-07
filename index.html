@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RickBot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #313338;
+      color: #dbdee1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #5865f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin: 0 auto 24px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      color: #b5bac1;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      max-width: 420px;
+      font-size: 15px;
+      color: #b5bac1;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .features {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .chip {
+      background: #2b2d31;
+      border: 1px solid #3f4147;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: #dbdee1;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #5865f2;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #4752c4; }
+
+    footer {
+      margin-top: 48px;
+      font-size: 12px;
+      color: #4e5058;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="avatar">🤖</div>
+
+  <h1>RickBot</h1>
+  <div class="tag">Discord Bot • Always Online</div>
+
+  <p>A helpful Discord bot for your server. Moderation, fun commands, music, and more — all in one.</p>
+
+  <div class="features">
+    <span class="chip">🛡️ Moderation</span>
+    <span class="chip">🎵 Music</span>
+    <span class="chip">🎮 Fun Commands</span>
+    <span class="chip">📊 Server Stats</span>
+    <span class="chip">⚙️ Custom Prefix</span>
+  </div>
+
+  <a href="#" class="btn">Add to Discord</a>
+
+  <footer>Made with ♥ — RickBot is not affiliated with Discord Inc.</footer>
+
+</body>
+</html>
