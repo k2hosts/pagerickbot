@@ -3,72 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RickBot</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <title>RickBot — Discord Security Bot</title>
+  <meta name="description" content="RickBot is a highly configurable Discord security and moderation bot. Protect your server with anti-nuke, anti-raid, auto-mod, audit logging, and a built-in ticket system." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #313338;
-      color: #dbdee1;
+      background: #0d0d0f;
+      color: #c8ccd4;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       text-align: center;
     }
 
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      background: #5865f2;
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: #1a1a2e;
+      border: 1px solid #2a2a40;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      margin: 0 auto 24px;
+      font-size: 38px;
+      margin: 0 auto 28px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1f1500;
+      border: 1px solid #3a2800;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #f59e0b;
+      margin-bottom: 20px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f59e0b;
     }
 
     h1 {
-      font-size: 36px;
+      font-size: 42px;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 8px;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
     }
 
-    .tag {
-      color: #b5bac1;
-      font-size: 14px;
-      margin-bottom: 20px;
+    .subtitle {
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 16px;
     }
 
     p {
-      max-width: 420px;
-      font-size: 15px;
-      color: #b5bac1;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .features {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
+      max-width: 480px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.7;
       margin-bottom: 36px;
     }
 
-    .chip {
-      background: #2b2d31;
-      border: 1px solid #3f4147;
-      border-radius: 20px;
-      padding: 6px 14px;
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .feature {
+      background: #111114;
+      border: 1px solid #1e1e24;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .feature-title {
       font-size: 13px;
-      color: #dbdee1;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-desc {
+      font-size: 12px;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .built-with {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 32px;
+      font-size: 12px;
+      color: #4b5563;
+    }
+    .badge {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #9ca3af;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
     }
 
     .btn {
@@ -76,42 +133,73 @@
       background: #5865f2;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
-      padding: 13px 28px;
+      padding: 12px 32px;
       border-radius: 8px;
       text-decoration: none;
-      transition: background 0.15s;
+      transition: background 0.15s, transform 0.1s;
     }
-    .btn:hover { background: #4752c4; }
+    .btn:hover { background: #4752c4; transform: translateY(-1px); }
 
     footer {
-      margin-top: 48px;
-      font-size: 12px;
-      color: #4e5058;
+      margin-top: 52px;
+      font-size: 11px;
+      color: #2a2a35;
     }
   </style>
 </head>
 <body>
 
-  <div class="avatar">🤖</div>
+  <div class="logo">🛡️</div>
 
-  <h1>RickBot</h1>
-  <div class="tag">Discord Bot • Always Online</div>
-
-  <p>A helpful Discord bot for your server. Moderation, fun commands, music, and more — all in one.</p>
-
-  <div class="features">
-    <span class="chip">🛡️ Moderation</span>
-    <span class="chip">🎵 Music</span>
-    <span class="chip">🎮 Fun Commands</span>
-    <span class="chip">📊 Server Stats</span>
-    <span class="chip">⚙️ Custom Prefix</span>
+  <div class="status">
+    <div class="status-dot"></div>
+    Under Development
   </div>
 
-  <a href="#" class="btn">Add to Discord</a>
+  <h1>RickBot</h1>
+  <div class="subtitle">Advanced Discord Security & Moderation</div>
 
-  <footer>Made with ♥ — RickBot is not affiliated with Discord Inc.</footer>
+  <p>RickBot is a highly configurable Discord security bot built with JavaScript and Node.js. Every protection is tunable to fit your server — from thresholds and punishments to whitelisted roles and logging channels.</p>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-title">💣 Anti-Nuke</div>
+      <div class="feature-desc">Detects mass deletions of channels, roles, and bans. Automatically punishes and reverses damage in real time.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">🚨 Anti-Raid</div>
+      <div class="feature-desc">Monitors join rates and triggers automatic lockdown when a raid is detected, keeping your community safe.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">⚡ Auto-Mod</div>
+      <div class="feature-desc">Filters spam, mass mentions, invite links, and toxic content with fully configurable rules and actions.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">📋 Audit Logging</div>
+      <div class="feature-desc">Logs every moderation action, security event, and server change to a dedicated channel of your choice.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">🎫 Ticket System</div>
+      <div class="feature-desc">A built-in support ticket system so your staff can handle reports and member issues without extra bots.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">⚙️ Highly Configurable</div>
+      <div class="feature-desc">Every feature is customisable — set thresholds, punishments, whitelists, and log channels your way.</div>
+    </div>
+  </div>
+
+  <div class="built-with">
+    Built with
+    <span class="badge">JavaScript</span>
+    <span class="badge">Node.js</span>
+    <span class="badge">discord.js</span>
+  </div>
+
+  <a href="#" class="btn">Add RickBot to your server</a>
+
+  <footer>RickBot is not affiliated with or endorsed by Discord Inc.</footer>
 
 </body>
 </html>
