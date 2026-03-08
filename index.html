@@ -681,7 +681,11 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content reveal">
-      <div class="hero-badge" id="hero-badge"><span class="badge-dot" id="badge-dot"></span> <span id="badge-text">Checking status...</span></div>
+      <!-- STATUS BADGE: uncomment the one you want, comment the rest -->
+      <!-- <div class="hero-badge"><span class="badge-dot"></span> Online and Protecting</div>
+      <!-- <div class="hero-badge degraded"><span class="badge-dot"></span> Updating</div> -->
+      <!-- <div class="hero-badge offline"><span class="badge-dot"></span> Down for Maintenance</div> -->
+      <div class="hero-badge degraded"><span class="badge-dot"></span> Under Development</div>
       <h1 class="hero-title">SHIELD<span>YOUR SERVER.</span></h1>
       <p class="hero-sub">RickBot is your server's most powerful line of defense. Anti-nuke, raid protection, AutoMod, and link filtering, all in one fast and reliable Discord bot built for communities that take security seriously.</p>
       <div class="hero-actions">
@@ -712,16 +716,12 @@
     <div class="stat-label">Threats Blocked</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="stat-cpu">--</div>
-    <div class="stat-label">CPU Usage</div>
+    <div class="stat-num">99.9%</div>
+    <div class="stat-label">Uptime</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" id="stat-ram">--</div>
-    <div class="stat-label">RAM Usage</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num" id="stat-state">--</div>
-    <div class="stat-label">Bot Status</div>
+    <div class="stat-num">&lt;50ms</div>
+    <div class="stat-label">Response Time</div>
   </div>
 </div>
 
@@ -897,73 +897,6 @@
   }, { threshold: 0.5 });
   const strip = document.querySelector('.stats-strip');
   if (strip) statsObserver.observe(strip);
-  // ===================== LIVE STATUS =====================
-  // Change this URL to your production proxy domain when you deploy.
-  const PROXY_URL = 'http://localhost:3001/status';
-  const POLL_INTERVAL = 30_000; // re-check every 30 seconds
-
-  const badgeEl   = document.getElementById('hero-badge');
-  const badgeDot  = document.getElementById('badge-dot');
-  const badgeText = document.getElementById('badge-text');
-  const statCpu   = document.getElementById('stat-cpu');
-  const statRam   = document.getElementById('stat-ram');
-  const statState = document.getElementById('stat-state');
-
-  const STATE_LABELS = {
-    running:  'Online',
-    starting: 'Starting',
-    stopping: 'Stopping',
-    offline:  'Offline',
-  };
-
-  function applyStatus(data) {
-    const state = data.state || 'offline';
-    const label = STATE_LABELS[state] || state.charAt(0).toUpperCase() + state.slice(1);
-
-    // Hero badge
-    badgeEl.classList.remove('offline', 'degraded');
-    if (state === 'running') {
-      badgeText.textContent = 'Online and Protecting';
-    } else if (state === 'offline') {
-      badgeText.textContent = 'Currently Offline';
-      badgeEl.classList.add('offline');
-    } else {
-      badgeText.textContent = label;
-      badgeEl.classList.add('degraded');
-    }
-
-    // Stats strip
-    statCpu.textContent   = data.cpu + '%';
-    statRam.textContent   = data.ram_mb >= 1024
-      ? (data.ram_mb / 1024).toFixed(1) + ' GB'
-      : data.ram_mb + ' MB';
-
-    statState.textContent = label;
-    statState.className   = 'stat-num ' + (state === 'running' ? 'online' : state === 'offline' ? 'offline' : 'degraded');
-  }
-
-  function applyError() {
-    badgeText.textContent = 'Status Unavailable';
-    badgeEl.classList.add('degraded');
-    statCpu.textContent   = '--';
-    statRam.textContent   = '--';
-    statState.textContent = '--';
-  }
-
-  async function fetchStatus() {
-    try {
-      const res = await fetch(PROXY_URL);
-      if (!res.ok) throw new Error('Bad response');
-      const data = await res.json();
-      applyStatus(data);
-    } catch {
-      applyError();
-    }
-  }
-
-  fetchStatus();
-  setInterval(fetchStatus, POLL_INTERVAL);
-
-
+</script>
 </body>
 </html>
