@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" type="image/png" href="rickbot-logo.png">
 <title>RickBot - Your Server's Security Bot</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
 <style>
@@ -708,22 +707,37 @@
 
 <!-- STATS -->
 <div class="stats-strip reveal">
+
+  <!-- STAT: Servers Protected - swap the number or remove/comment out if not ready -->
   <div class="stat-item">
-    <div class="stat-num">Soon</div>
+    <!-- <div class="stat-num" data-count="50" data-suffix="K+">50K+</div> -->
+    <!-- <div class="stat-num" data-count="100" data-suffix="K+">100K+</div> -->
+    <div class="stat-num" data-text="Soon">Soon</div> -->
     <div class="stat-label">Servers Protected</div>
   </div>
+
+  <!-- STAT: Threats Blocked - swap or comment if not ready -->
   <div class="stat-item">
-    <div class="stat-num">Soon</div>
+    <!-- <div class="stat-num" data-count="2" data-suffix="M+">2M+</div>
+    <!-- <div class="stat-num" data-count="500" data-suffix="K+">500K+</div> -->
+    <div class="stat-num" data-text="Soon">Soon</div> -->
     <div class="stat-label">Threats Blocked</div>
   </div>
+
+  <!-- STAT: Uptime -->
   <div class="stat-item">
-    <div class="stat-num">Soon</div>
+    <!-- <div class="stat-num" data-count="99.9" data-suffix="%" data-decimals="1">99.9%</div> -->
+    <div class="stat-num" data-text="Soon">Soon</div>
     <div class="stat-label">Uptime</div>
   </div>
+
+  <!-- STAT: Response Time - text stat, will glitch in -->
   <div class="stat-item">
-    <div class="stat-num">&lt;Soon</div>
+    <!-- <div class="stat-num" data-text="&lt;50ms">&lt;50ms</div> -->
+    <div class="stat-num" data-text="Soon">Soon</div>
     <div class="stat-label">Response Time</div>
   </div>
+
 </div>
 
 <!-- FEATURES -->
@@ -874,24 +888,52 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Counter animation
-  function animateCount(el, target, suffix) {
+  // Counter + glitch animation for stats
+  const GLITCH_CHARS = '!@#$%^&*?<>/\\[]{}~';
+
+  function animateCount(el, target, suffix, decimals) {
     let current = 0;
     const duration = 1800;
     const step = target / (duration / 16);
     const timer = setInterval(() => {
       current += step;
       if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = (suffix === '%' ? current.toFixed(1) : Math.floor(current).toLocaleString()) + suffix;
+      el.textContent = (decimals ? current.toFixed(decimals) : Math.floor(current).toLocaleString()) + suffix;
     }, 16);
   }
+
+  function animateGlitch(el, finalText) {
+    const total = 800;
+    const interval = 40;
+    let elapsed = 0;
+    const timer = setInterval(() => {
+      elapsed += interval;
+      if (elapsed >= total) {
+        el.textContent = finalText;
+        clearInterval(timer);
+        return;
+      }
+      const progress = elapsed / total;
+      el.textContent = finalText.split('').map((char, i) => {
+        if (i < Math.floor(progress * finalText.length)) return char;
+        return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+      }).join('');
+    }, interval);
+  }
+
   const statsObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const nums = entry.target.querySelectorAll('.stat-num');
-        nums[0] && animateCount(nums[0], 50, 'K+');
-        nums[1] && animateCount(nums[1], 2, 'M+');
-        nums[2] && animateCount(nums[2], 99.9, '%');
+        entry.target.querySelectorAll('.stat-num').forEach(el => {
+          if (el.dataset.count !== undefined) {
+            const target   = parseFloat(el.dataset.count);
+            const suffix   = el.dataset.suffix || '';
+            const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+            animateCount(el, target, suffix, decimals);
+          } else if (el.dataset.text !== undefined) {
+            animateGlitch(el, el.dataset.text || el.textContent);
+          }
+        });
         statsObserver.unobserve(entry.target);
       }
     });
